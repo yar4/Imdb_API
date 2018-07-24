@@ -29,8 +29,8 @@ function generateResultCards(data) {
     var resultArray = search.map(stack =>`<div class="card" style="width: 18rem;">
     <img class="card-img-top" src="${stack.Poster}" alt="Card image cap">
     <div class="card-body">
-    <p> ${stack.Title} <p><br>
-    <p> ${stack.imdbID}</p><br>
+    <p> ${stack.Title} </p><br>
+    <p><i class="fas fa-film"></i><a href="https://www.imdb.com/title/${stack.imdbID}/" target ="_blank">Look in IMDB</a></p> <br>
     <p> ${stack.Type}</p>
     </div>
   </div>`).join('');
