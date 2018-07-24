@@ -25,7 +25,7 @@ function setVisibility(element, isError) {
 }
 
 function generateResultCards(data) {
-    const search = data.Search;
+    const search = data.Search ? data.Search : data ;
     var resultArray = search.map(stack =>`<div class="card" style="width: 18rem;">
     <img class="card-img-top" src="${stack.Poster}" alt="Card image cap">
     <div class="card-body">
@@ -54,27 +54,29 @@ function filterResult(data) {
     const typesearch = data.Search;
     const filmtype = typesearch.filter(function(moviefilms){
         return moviefilms.Type == 'movie'
+
     })
-    console.log(filmtype)
+    generateResultCards(filmtype)
 }
+
 
 document.getElementById("btn2").addEventListener('click', (event) => {
     event.preventDefault();
     const value = form.title.value.trim(); 
     fetch(`${URL}&s=${value}`)
             .then(response => response.json())
-            .then(data => filterResult(data))
+            .then(data => filterResultSer(data))
         form.title.classList.remove('error');
         setVisibility(form.querySelector('.error-message'), false);
     })
 
 
-function filterResult(data) {
+function filterResultSer(data) {
     const typesearch = data.Search;
     const seriestype = typesearch.filter(function(seriesfilms){
         return seriesfilms.Type == 'series'
     })
-    console.log(seriestype)
+    generateResultCards(seriestype)
 }
 
 document.getElementById("btn3").addEventListener('click', (event) => {
@@ -82,16 +84,16 @@ document.getElementById("btn3").addEventListener('click', (event) => {
     const value = form.title.value.trim(); 
     fetch(`${URL}&s=${value}`)
             .then(response => response.json())
-            .then(data => filterResult(data))
+            .then(data => filterResultEpi(data))
         form.title.classList.remove('error');
         setVisibility(form.querySelector('.error-message'), false);
     })
 
 
-function filterResult(data) {
+function filterResultEpi(data) {
     const typesearch = data.Search;
     const episodetype = typesearch.filter(function(episodefilms){
-        return episodefilms.Type == 'series'
+        return episodefilms.Type == 'episodes'
     })
-    console.log(episodetype)
+    generateResultCards(episodetype)
 }
